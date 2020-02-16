@@ -40,6 +40,9 @@ def order_form_creation(request):
             else:
                 messages.success(request, 'Нажаль, всі автомобілі зайняті.')
                 return render(request, 'app/taxi/failed_order_info.html')
+        else:
+            form = TaxiOrderForm()
+
     context = {'form': form}
     return render(request, 'app/taxi/user_form_order.html', context)
 
@@ -74,3 +77,16 @@ def register_page(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def change_taxi_state(request, brand='xxx'):
+    # При добавленні кнопки в html
+    # car1 = Car.objects.get(car_brand=brand)
+    # car1.order = None
+    # car1.active = True
+    # return car1
+    car = Car.objects.filter(active=False).first()
+    car.order = None
+    car.active = True
+    car.save()
+    return car
