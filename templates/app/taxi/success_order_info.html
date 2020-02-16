@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container" style="margin-top: 20px">
+        {% for message in messages%}
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            {{ message }}
+          </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"> Номер замовлення <strong>{{ order_number }}</strong></li>
+                <li class="list-group-item"> Марка автомобіля <strong>{{ car.car_brand }}</strong></li>
+               </ul>
+        </div>
+        {% endfor %}
+     <a class="btn btn-success" href="{% url 'form_create' %}" style="margin-top: 20px">Повернутись до форми замовлення</a>
+</div>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'app/taxi/base.html'%}
+{% block content %}
+    <div class="container" style="margin-top: 20px">
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            {{ object.name }}
+          </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ object.phone }}</li>
+                <li class="list-group-item">{{ object.start_address }}</li>
+                <li class="list-group-item">{{ object.end_address }}</li>
+                <li class="list-group-item">{{ object.desire_time }}</li>
+              </ul>
+        </div>
+        <a class="btn btn-success" href="{% url 'all_orders' %}" style="margin-top: 20px">Return to all orders</a>
+    </div>
+{% endblock %}

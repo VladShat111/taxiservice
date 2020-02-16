@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul class="nav nav-tabs">
+
+{% if user.is_authenticated  %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+  </li>
+{% else %}
+ <li class="nav-item">
+    <a class="nav-link" href="{% url 'login' %}">Login</a>
+ </li>
+ <li class="nav-item">
+    <a class="nav-link" href="{% url 'registration' %}">Registration</a>
+ </li>
+{% endif %}
+</ul>
+
+{% block content %}
+{% endblock %}
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'app/taxi/base.html' %}
+{% block content %}
+    <div class="container" style="margin-top: 20px">
+        <table class="table table-sm table-active">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ім'я</th>
+                    <th scope="col">Адреса виклика авто</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in orders %}
+                    <tr>
+                        <th scope="row">{{ item.pk }}</th>
+                        <td> <a href="{% url 'one_order' item.pk %}">{{ item.name }}</a></td>
+                        <td> {{ item.start_address }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}">Previous</a>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
