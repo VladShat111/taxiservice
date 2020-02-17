@@ -1,6 +1,11 @@
 from django.urls import path
-from django.contrib.auth import views
-from .views import OrdersView, OrderDetailView, register_page, login_user, logout_user, order_form_creation
+
+from .views import (OrdersView,
+                    OrderDetailView,
+                    register_page,
+                    login_user, logout_user,
+                    order_form_creation,
+                    change_taxi_state)
 
 urlpatterns = [
     path('orders/', OrdersView.as_view(), name='all_orders'),
@@ -9,4 +14,5 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('create/order/', order_form_creation, name='form_create'),
+    path('delete_order/<int:pk>/', change_taxi_state, name='delete')
 ]

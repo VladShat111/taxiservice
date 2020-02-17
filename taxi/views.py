@@ -19,9 +19,15 @@ class OrdersView(LoginRequiredMixin, generic.ListView):
 
 
 class OrderDetailView(LoginRequiredMixin, generic.DetailView):
-    model = TaxiOrder
-    template_name = 'app/taxi/order.html'
 
+    def get(self, request, *args, **kwargs):
+        taxi_order = get_object_or_404(TaxiOrder, pk=kwargs['pk'])
+        car = Car.objects.get(order=taxi_order)
+
+        context = {'object': taxi_order,
+                   'car': car}
+
+        return render(request, 'app/taxi/order.html', context)
 
 def order_form_creation(request):
     form = TaxiOrderForm()
@@ -79,14 +85,20 @@ def logout_user(request):
     return redirect('login')
 
 
-def change_taxi_state(request, brand='xxx'):
+def change_taxi_state(request, pk):
     # При добавленні кнопки в html
-    # car1 = Car.objects.get(car_brand=brand)
-    # car1.order = None
-    # car1.active = True
-    # return car1
-    car = Car.objects.filter(active=False).first()
-    car.order = None
-    car.active = True
-    car.save()
-    return car
+    order = TaxiOrder.objects.get(pk=pk)
+    car1 = Car.objects.get(order=order)
+    if request.method == 'POST':
+        car1.order = None
+        car1.active = True
+        car1.save()
+        order.delete()
+        redirect('all_orders')
+
+    return render(request, 'app/taxi/confirm_delete.html')
+    # car = Car.objects.filter(active=False).first()
+    # car.order = None
+    # car.active = True
+    # car.save()
+    # return car
