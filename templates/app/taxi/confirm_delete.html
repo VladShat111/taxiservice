@@ -1,7 +1,7 @@
 {% extends 'app/taxi/base.html' %}
 {% block content %}
     <h1>Ви впевнені що хочете видалити замовлення?</h1>
-    <form method="post">
+    <form method="POST" action="{% url 'delete' order.pk %}">
         {% csrf_token %}
         <button class="btn btn-danger" type="submit">Видалити</button>
     </form>

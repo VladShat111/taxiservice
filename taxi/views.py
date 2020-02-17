@@ -90,13 +90,12 @@ def change_taxi_state(request, pk):
     order = TaxiOrder.objects.get(pk=pk)
     car1 = Car.objects.get(order=order)
     if request.method == 'POST':
-        car1.order = None
         car1.active = True
         car1.save()
         order.delete()
-        redirect('all_orders')
-
-    return render(request, 'app/taxi/confirm_delete.html')
+        return redirect('all_orders')
+    context = {'order': order}
+    return render(request, 'app/taxi/confirm_delete.html', context)
     # car = Car.objects.filter(active=False).first()
     # car.order = None
     # car.active = True

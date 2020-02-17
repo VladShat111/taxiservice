@@ -16,7 +16,7 @@ class TaxiOrder(models.Model):
 
 
 class Car(models.Model):
-    order = models.ForeignKey(TaxiOrder, on_delete=models.DO_NOTHING, null=True, blank=True)
+    order = models.ForeignKey(TaxiOrder, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(default=False)
     car_brand = models.CharField(max_length=100)
 
